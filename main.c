@@ -41,8 +41,6 @@
 *******************************************************************************/
 #include "cy_pdl.h"
 #include "cybsp.h"
-#include "cy_sysfault.h"
-#include "cy_sysint.h"
 #include "cy_retarget_io.h"
 #include <inttypes.h>
 
@@ -152,12 +150,12 @@ static void handleFaultIrq(void)
             g_faultIrqOccurredDwNonCorrectableEcc = true;
             printf("P-DMA non-correctable ECC fault detected:\r\n");
         }
-        printf("- Word address: 0x%" PRIu32 "\r\n", faultAddress / BYTES_PER_32_BIT_WORD);
-        printf("- ECC syndrome: 0x%" PRIu32 "\r\n", faultInfo);
+        printf("- Word address: 0x%" PRIx32 "\r\n", faultAddress / BYTES_PER_32_BIT_WORD);
+        printf("- ECC syndrome: 0x%" PRIx32 "\r\n", faultInfo);
     }
     else
     {
-        printf("TEST ERROR: Unexpected fault source (0x%" PRIu32 ") detected!\r\n", (uint32_t)errorSource);
+        printf("TEST ERROR: Unexpected fault source (0x%" PRIx32 ") detected!\r\n", (uint32_t)errorSource);
     }
 
     /* Set flag so that test code can check that the IRQ has occurred */
@@ -417,8 +415,8 @@ int main(void)
     correctParity = getParityForValue(TEST_CH, TARGET_SRAM_WORD_1, (uint32_t)&g_dummyDmaDescriptor);
 
     printf("Info about P-DMA test\r\n");
-    printf("- Test value (descriptor address): 0x%" PRIu32 "\r\n", (uint32_t)&g_dummyDmaDescriptor);
-    printf("- Correct ECC Parity:              0x%" PRIu8 "\r\n", correctParity);
+    printf("- Test value (descriptor address): 0x%" PRIx32 "\r\n", (uint32_t)&g_dummyDmaDescriptor);
+    printf("- Correct ECC Parity:              0x%02x \r\n", correctParity);
     printf("\r\n");
 
 
